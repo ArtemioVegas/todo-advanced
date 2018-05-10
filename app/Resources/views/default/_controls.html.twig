@@ -1,0 +1,28 @@
+<div class="tasks-controls">
+    <div class="radio-button-group">
+        <label class="radio-button">
+            <input class="radio-button__input visually-hidden" type="radio" name="radio" checked="" onclick="location.href='{{ path('task_all') }}?date_filter=all'">
+            <span class="radio-button__text">Все задачи</span>
+        </label>
+
+        <label class="radio-button">
+            <input class="radio-button__input visually-hidden" type="radio" name="radio" onclick="location.href='{{ path('task_all') }}?date_filter=today'" >
+            <span class="radio-button__text">Повестка дня</span>
+        </label>
+
+        <label class="radio-button">
+            <input class="radio-button__input visually-hidden" type="radio" name="radio" onclick="location.href='{{ path('task_all') }}?date_filter=tomorrow'" >
+            <span class="radio-button__text">Завтра</span>
+        </label>
+
+        <label class="radio-button">
+            <input class="radio-button__input visually-hidden" type="radio" name="radio" onclick="location.href='{{ path('task_all') }}?date_filter=expired'" >
+            <span class="radio-button__text">Просроченные</span>
+        </label>
+    </div>
+
+    <label class="checkbox">
+        <input class="checkbox__input visually-hidden" type="checkbox" {% if app.request.get('show_completed') is same as('1') %} checked="checked" {% endif %}>
+        <span class="checkbox__text">Показывать выполненные</span>
+    </label>
+</div>

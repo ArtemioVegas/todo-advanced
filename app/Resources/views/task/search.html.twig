@@ -1,0 +1,76 @@
+{% extends 'layout.html.twig' %}
+{% block title %}Search results{% endblock %}
+{% block main %}
+    <h2 class="content__main-heading">Список результатов</h2>
+
+    <form class="search-form" action="{{ path('task_search') }}" method="get">
+        <input class="search-form__input" type="text" name="q" placeholder="Поиск по задачам" autocomplete="off">
+
+        <input class="search-form__submit" type="submit" name="" value="Искать">
+    </form>
+
+    {% if tasks|length > 0  %}
+        <table class="tasks">
+            <tbody>
+            {% for task in tasks %}
+                <tr class="tasks__item task">
+
+                    <td class="task__select">
+                        <label class="checkbox task__checkbox">
+                            <input class="checkbox__input visually-hidden" type="checkbox">
+                            <span class="checkbox__text">{{ task.taskName }}</span>
+                        </label>
+                    </td>
+
+                    <td class="task__file">
+                        {% if task.uploadFile %}
+                            <a class="download-link" href="{{ path('download_file', {'filename':task.uploadFile}) }}">
+                                {{ task.uploadOriginalName }}
+                            </a>
+                        {% else %}
+                            <span class="download-link"> No File </span>
+                        {% endif %}
+                    </td>
+
+                    <td class="task__date">{{ task.dueDate|date('d-m-Y ') }}</td>
+
+                    <td class="task__controls">
+                        <button class="expand-control" type="button" name="button">Открыть список комманд</button>
+
+                        <ul class="expand-list hidden">
+                            <li class="expand-list__item">
+                                <a href="{{ path('task_done', {'id':task.id}) }}" class="btn btn-md btn-block btn-primary" >
+                                    ВЫПОЛНИТЬ
+                                </a>
+                            </li>
+
+                            <li class="expand-list__item">
+                                <div class="section">
+                                    {% set act = url('task_delete', { id: task.id }) %}
+                                    {{ include('form/_delete_form.html.twig', { task: task, act: act }, with_context = false) }}
+                                </div>
+                            </li>
+
+                            <li class="expand-list__item">
+                                <a href="{{ path('task_clone', {'id':task.id}) }}" class="btn btn-md btn-block btn-success" >
+                                    ДУБЛИРОВАТЬ
+                                </a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        {% if not app.request.get('q') %}
+            <p>Введите поисковую фразу</p>
+        {% else %}
+            {% if app.request.get('q')|length <=2 %}
+                <p>Запрос должен быть длиннее 2х симовлов</p>
+            {% else %}
+                <p>По вашему запросу задач не найдено</p>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endblock %}

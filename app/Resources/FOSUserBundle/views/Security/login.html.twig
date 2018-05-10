@@ -1,0 +1,18 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{# @FOSUser/layout.html.twig #}
+
+{% block title %}Авторизация{% endblock %}
+
+{% block content__side %}
+    <section class="content__side">
+        <p class="content__side-info">Если вы еще не зарегистированы пожалуйста зарегистрируйтесь</p>
+
+        <a class="button button--transparent content__side-button" href="{{ path('fos_user_registration_register') }}">
+            Зарегистрироваться
+        </a>
+    </section>
+{% endblock %}
+
+{% block fos_user_content %}
+    {% include "@FOSUser/Security/login_content.html.twig" %}
+{% endblock fos_user_content %}

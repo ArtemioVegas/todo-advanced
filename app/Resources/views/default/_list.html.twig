@@ -1,0 +1,74 @@
+<table class="tasks">
+    <tbody>
+    <tr class="tasks__item">
+        <td class="task__file">Name</td>
+        <td class="task__file">ID</td>
+        <td class="task__file">Project</td>
+        <td class="task__file">File</td>
+        <td class="task__date">Date</td>
+        <td class = "task__controls">Action</td>
+    </tr>
+    {% for task in tasks %}
+        <tr id = "{{ task.id }}" class="tasks__item task{% if task.isDone %}--completed{% endif %}{% if not task.isDone and date(task.dueDate) <= date() %}--important{% endif %}">
+            <td class="task__select">
+                <label class="checkbox task__checkbox">
+                    <input class="checkbox__input visually-hidden" type="checkbox">
+                    <span class="checkbox__text">
+                            <a href = "{{ path('task_show', {'id':task.id}) }}" class = "not_href">{{ task.taskName }}</a>
+                        </span>
+                </label>
+            </td>
+
+            <td class="task__id"><span>{{ task.id }}</span></td>
+            <td class="task__project">
+                <a class = "not_href" href="{{ path('project_show', {'id':task.project.id}) }}">
+                    <span>{{ task.project }}</span>
+                </a>
+            </td>
+
+            <td class="task__file">
+                {% if task.uploadFile %}
+                    <a class="download-link" href="{{ path('download_file', {'filename':task.uploadFile|basename,'originalName':task.uploadOriginalName}) }}">
+                        {{ task.uploadOriginalName }}
+                    </a>
+                {% else %}
+                    <span class="download-link"> No File </span>
+                {% endif %}
+            </td>
+
+            <td class="task__date">{{ task.dueDate|date('d-m-Y ') }}</td>
+
+            <td class="task__controls">
+                <button class="expand-control" type="button" name="button">Открыть список комманд</button>
+
+                <ul class="expand-list hidden">
+                    {% if not task.isDone %}
+                        <li id="delete_button_{{task.id}}" class="expand-list__item">
+                            <a href="#" class="btn btn-md btn-block btn-primary" onclick="completeOneTask( {{task.id}},'{{ path('task_done', {'id':task.id}) }}' );return false;">
+                                ВЫПОЛНИТЬ
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    <li class="expand-list__item">
+                        <a href="#" class="btn btn-md btn-block btn-danger" onclick="deleteOneTask( {{task.id}},'{{ path('task_delete', {'id':task.id}) }}' );return false;">
+                            УДАЛИТЬ
+                        </a>
+                    </li>
+
+                    <li class="expand-list__item">
+                        <a href="#" class="btn btn-md btn-block btn-success" onclick="duplicateOneTask( '{{ path('task_clone', {'id':task.id}) }}' );return false;">
+                            ДУБЛИРОВАТЬ
+                        </a>
+                    </li>
+                    <li class="expand-list__item">
+                        <a href="{{ path('task_edit', {'id':task.id}) }}" class="btn btn-md btn-block btn-info">
+                            РЕДАКТИРОВАТЬ
+                        </a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

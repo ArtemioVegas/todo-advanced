@@ -1,0 +1,22 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% form_theme form 'form/fields.html.twig' %}
+
+<h2 class="content__main-heading">Замена пароля</h2>
+
+{{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'form fos_user_resetting_reset' } }) }}
+    <div class="form__row">
+        {{ form_label(form.plainPassword.first, null, {'label_attr': {'class': 'form__label'}}) }}
+        {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form__input'}}) }}
+        {{ form_errors(form.plainPassword.first) }}
+    </div>
+
+    <div class="form__row">
+        {{ form_label(form.plainPassword.second, null, {'label_attr': {'class': 'form__label'}}) }}
+        {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form__input'}}) }}
+        {{ form_errors(form.plainPassword.second) }}
+    </div>
+
+    <div class="form__row form__row--controls">
+        <input class = "button" type="submit" value="{{ 'resetting.reset.submit'|trans }}" />
+    </div>
+{{ form_end(form) }}

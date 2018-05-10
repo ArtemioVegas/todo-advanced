@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/bootstrap-flatly-3.3.7.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+        {% block body_hat %}<body>{% endblock %}
+    {{ include('form/_delete_post_confirmation.html.twig') }}
+    <h1 class="visually-hidden">Дела в порядке</h1>
+    <div class="page-wrapper">
+        {% block container %}<div class="container">{% endblock %}
+        <header class="main-header">
+            {% block header %}
+                <a href="{{ app.user ? path('task_all') : path('homepage') }}">
+                    <img src="{{ asset('img/logo.png') }}" width="153" height="42" alt="Логитип Дела в порядке">
+                </a>
+            {% endblock %}
+        </header>
+            <div class="content">
+            {% block content__side %}{% endblock %}
+            {% block content %}
+            {% block sidebar %}{% endblock %}
+            <main class="content__main">
+                {{ include('default/_flash_messages.html.twig') }}
+                {% block main %}{% endblock %}
+            </main>
+        {% endblock %}
+            </div>
+      </div>
+    </div>
+        {% block footer %}
+            {% include('default/_footer.html.twig') only %}
+        {% endblock %}
+
+        {% block javascripts %}
+            <script src="{{ asset('js/jquery-2.2.4.min.js') }}"></script>
+            <script src="{{ asset('js/bootstrap-3.3.7.min.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>

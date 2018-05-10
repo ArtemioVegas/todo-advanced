@@ -1,0 +1,9 @@
+{% extends 'layout.html.twig' %}
+{% form_theme form 'form/fields.html.twig' %}
+
+{% block title %}Добавить проект{% endblock %}
+
+{% block main %}
+    <h2 class="content__main-heading">Добавить проект</h2>
+    {{ include('project/_project_form.html.twig') }}
+{% endblock %}

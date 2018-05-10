@@ -1,0 +1,39 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% form_theme form 'form/fields.html.twig' %}
+
+<h2 class="content__main-heading">Регистрация аккаунта</h2>
+{{ form_start(form, {'method': 'POST', 'attr': {'class': 'form'}}) }}
+    <div class="form__row">
+        {{ form_label(form.email, 'Email', {'label_attr': {'class': 'form__label'}}) }}
+        {{ form_widget(form.email, {'attr': {'class': 'form__input','placeholder': 'Введите Email' }}) }}
+        {{ form_errors(form.email) }}
+    </div>
+
+    <div class="form__row">
+        {{ form_label(form.username, 'Имя', {'label_attr': {'class': 'form__label'}}) }}
+        {{ form_widget(form.username, {'attr': {'class': 'form__input','placeholder': 'Введите имя'}}) }}
+        {{ form_errors(form.username) }}
+    </div>
+
+    <div class="form__row">
+        {{ form_label(form.plainPassword.first, 'Пароль', {'label_attr': {'class': 'form__label'}}) }}
+        {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form__input','placeholder': 'Введите пароль'}}) }}
+        {{ form_errors(form.plainPassword.first) }}
+    </div>
+
+    <div class="form__row">
+        {{ form_label(form.plainPassword.second, 'Повтор пароля', {'label_attr': {'class': 'form__label'}}) }}
+        {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form__input','placeholder': 'Повторите пароль'}}) }}
+        {{ form_errors(form.plainPassword.second) }}
+    </div>
+
+    <div class="form__row">
+        {{ form_label(form.captcha, 'Введите код с картинки', {'label_attr': {'class': 'form__label'}}) }}
+        {{ form_widget(form.captcha, {'attr': {'class': 'form__input'}}) }}
+        {{ form_errors(form.captcha) }}
+    </div>
+
+    <div class="form__row form__row--controls">
+        <input class="button" type="submit" value="Зарегистрироваться">
+    </div>
+{{ form_end(form) }}

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Страница не найдена{% endblock %}
+
+{% block body_hat %}
+<body class="body-background">
+{% endblock %}
+
+{% block main %}
+    <section class="welcome">
+        <h2 class="welcome__heading">404 Страница не найдена</h2>
+
+        <div class="welcome__text">
+            <p>Запрошенная страница не найдена. Проверьте URL-адрес или <a href="{{ path('homepage') }}"> вернуться на домашнюю страницу </a></p>
+        </div>
+
+    </section>
+{% endblock %}

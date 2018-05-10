@@ -1,0 +1,41 @@
+<section class="content__side">
+    <h2 class="content__side-heading">Проекты</h2>
+
+    <nav class="main-navigation">
+        <ul class="main-navigation__list">
+
+            {% for project in projects %}
+                {% set counter = 0 %}
+                {% for task in project.tasks %}
+                    {% if task.isDone == 0  %}
+                        {% set counter = counter + 1 %}
+                    {% endif %}
+                {% endfor %}
+            <li class="main-navigation__list-item">
+                <a class="main-navigation__list-item-link" href="{{ path('project_show', {'id':project.id}) }}">
+                    {{ project.projectName }}
+                </a>
+                <span class="main-navigation__list-item-count">{{ counter }}</span>
+                <td class="task__controls">
+                    <button class="expand-control" type="button" name="button">Открыть список команд</button>
+
+                    <ul class="expand-list hidden relate">
+                        <li class="expand-list__item">
+                            <a href="{{ path('project_edit', {'id':project.id}) }}" class = "btn btn-md btn-block btn-info" >Редактировать</a>
+                        </li>
+
+                        <li class="expand-list__item">
+                            <div class="section">
+                                {% set act = url('project_delete', { id: project.id }) %}
+                                {{ include('form/_delete_form.html.twig', { project: project,act: act }, with_context = false) }}
+                            </div>
+                        </li>
+                    </ul>
+                </td>
+            </li>
+            {% endfor %}
+        </ul>
+    </nav>
+
+    <a class="button button--transparent button--plus content__side-button" href="{{ path('project_add') }}">Добавить проект</a>
+</section>

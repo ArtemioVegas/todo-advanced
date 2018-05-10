@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Произошла ошибка: {{ status_text }}{% endblock %}
+
+{% block body_hat %}
+<body class="body-background">
+{% endblock %}
+
+{% block main %}
+<section class="welcome">
+    <h1>Упс! Произошла ошибка</h1>
+    <h2 class="welcome__heading">Сервер вернул ответ "{{ status_code }} {{ status_text }}".</h2>
+
+    <div class="welcome__text">
+        <p>Что-то сломалось. Сообщите нам, что вы делали, когда произошла эта ошибка.</p>
+        <p>Мы исправим его как можно скорее. Извините за причиненные неудобства.</p>
+    </div>
+
+</section>
+{% endblock %}

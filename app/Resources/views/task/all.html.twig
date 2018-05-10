@@ -1,0 +1,19 @@
+{% extends 'layout.html.twig' %}
+{% block title %}Все задачи{% endblock %}
+{% block main %}
+    <h2 class="content__main-heading">Список задач</h2>
+
+    {% include('form/_search.html.twig') only %}
+
+    {% include('default/_controls.html.twig') only %}
+
+    {% if tasks|length > 0  %}
+        {% include('default/_list.html.twig') with {'tasks': tasks} only %}
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+   {{ parent() }}
+    <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/ajax.js') }}"></script>
+{% endblock %}

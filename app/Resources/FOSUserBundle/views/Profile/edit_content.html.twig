@@ -1,0 +1,38 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% form_theme form 'form/fields.html.twig' %}
+
+<h2 class="content__main-heading">Редактирование профиля</h2>
+
+{{ form_start(form, {'method': 'POST','action': path('fos_user_profile_edit'), 'attr': {'class': 'form fos_user_profile_edit'}}) }}
+<div class="form__row">
+    {{ form_label(form.email, 'Email', {'label_attr': {'class': 'form__label'}}) }}
+    {{ form_widget(form.email, {'attr': {'class': 'form__input'}}) }}
+    {{ form_errors(form.email) }}
+</div>
+
+<div class="form__row">
+    {{ form_label(form.username, 'Имя', {'label_attr': {'class': 'form__label'}}) }}
+    {{ form_widget(form.username, {'attr': {'class': 'form__input'}}) }}
+    {{ form_errors(form.username) }}
+</div>
+
+<div class="form__row">
+    {{ form_label(form.contacts, 'Контакты', {'label_attr': {'class': 'form__label'}}) }}
+    {{ form_widget(form.contacts, {'attr': {'class': 'form__input','placeholder': 'Введите телефон в следующе формате: +79999999999'}}) }}
+    {{ form_errors(form.contacts) }}
+</div>
+
+<div class="form__row">
+    {{ form_label(form.current_password, 'Пароль', {'label_attr': {'class': 'form__label'}}) }}
+    {{ form_widget(form.current_password, {'attr': {'class': 'form__input','placeholder': 'Введите пароль'}}) }}
+    {{ form_errors(form.current_password) }}
+</div>
+
+
+<div class="form__row form__row--controls">
+    <input class="button" type="submit" value="{{ 'profile.edit.submit'|trans }}">
+    <a class="button" href="{{ path('fos_user_profile_show') }}">
+        Назад
+    </a>
+</div>
+{{ form_end(form) }}

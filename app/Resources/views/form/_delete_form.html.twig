@@ -1,0 +1,5 @@
+{# {{ include('form/_delete_post_confirmation.html.twig') }} #}
+<form action="{{ act }}" method="post" data-confirmation="true" id="delete-form">
+    <input type="hidden" name="token" value="{{ csrf_token('delete') }}" />
+    <input type="submit" data-toggle="confirmation" data-message="Are you sure to delete this project?" value="УДАЛИТЬ" class="btn btn-md btn-block btn-danger" />
+</form>

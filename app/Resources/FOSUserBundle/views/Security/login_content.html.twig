@@ -1,0 +1,78 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{#
+<h2 class="content__main-heading">Авторизация</h2>
+<form class = "form" action="{{ path("fos_user_security_check") }}" method="post">
+    {% if csrf_token %}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    {% endif %}
+
+    <div class="form__row">
+        <label class = "form__label required" for="username">{{ 'security.login.username'|trans }}</label>
+        <input class = "form__input" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+    </div>
+
+    <div class="form__row">
+        <label class = "form__label required" for="password">{{ 'security.login.password'|trans }}</label>
+        <input class = "form__input" type="password" id="password" name="_password" required="required" />
+    </div>
+
+    <div class="form__row">
+        <input type="checkbox" id="remember_me" name="_remember_me" checked="checked" />
+        <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+    </div>
+
+    <div class="form__row">
+        <img class="captcha_image" id="captcha_5acb4a8a3090e" src="{{ path('gregwar_captcha.generate_captcha', {'key':'herax'}) }}" alt="" title="captcha" width="130" height="50">
+    </div>
+
+    <div class="form__row form__row--controls">
+        {% if error %}
+            <p class="error-massage">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+        {% endif %}
+        <input class="button" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+        <a class="button" href="{{ path('fos_user_resetting_request') }}">
+            Забыли пароль
+        </a>
+    </div>
+</form>
+#}
+
+    <h2 class="content__main-heading">Авторизация</h2>
+    {{ form_start(form, {'action': path('fos_user_security_check'),'method': 'POST', 'attr': {'class': 'form'}}) }}
+
+    {% if csrf_token %}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    {% endif %}
+
+    <div class="form__row">
+        {{ form_label(form._username, null, {'label_attr': {'class': 'form__label'}}) }}
+        {{ form_widget(form._username, {'attr': {'class': 'form__input'}}) }}
+    </div>
+
+    <div class="form__row">
+        {{ form_label(form._password, null, {'label_attr': {'class': 'form__label'}}) }}
+        {{ form_widget(form._password, {'attr': {'class': 'form__input'}}) }}
+    </div>
+
+    <div class="form__row">
+        {{ form_label(form.captcha, 'Введите код с картинки', {'label_attr': {'class': 'form__label'}}) }}
+        {{ form_widget(form.captcha, {'attr': {'class': 'form__input'}}) }}
+        {{ form_errors(form.captcha) }}
+    </div>
+
+    <div class="form__row">
+        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+        <label class = "form__label" for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+    </div>
+
+    <div class="form__row form__row--controls">
+        {% if error %}
+            <p class="error-massage">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+        {% endif %}
+        <input class="button" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+        <a class="button" href="{{ path('fos_user_resetting_request') }}">
+            Забыли пароль
+        </a>
+    </div>
+    {{ form_end(form) }}

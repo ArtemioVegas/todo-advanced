@@ -1,0 +1,7 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block title %}Замена пароля{% endblock %}
+
+{% block fos_user_content %}
+    {% include "@FOSUser/Resetting/reset_content.html.twig" %}
+{% endblock fos_user_content %}

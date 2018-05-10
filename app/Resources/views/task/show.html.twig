@@ -1,0 +1,78 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Показать задачу{% endblock %}
+
+{% block main %}
+    <h2 class="content__main-heading">Показать задачу</h2>
+
+    <div class = "form">
+        <div class="form__row">
+            <label class="form__label" for="task_form_id">ID задачи</label>
+            <input type="text" id="task_form_id" name="task_form[id]" class="form__input" readonly value="{{ task.id }}">
+        </div>
+
+        <div class="form__row">
+            <label class="form__label" for="task_form_taskName">Название задачи</label>
+            <input type="text" id="task_form_taskName" name="task_form[taskName]" class="form__input" readonly value="{{ task.taskName }}">
+        </div>
+
+        <div class="form__row">
+            <label class="form__label" for="task_form_taskName">Описание задачи</label>
+            <input type="text" id="task_form_description" name="task_form[description]" class="form__input" readonly value="{{ task.description }}">
+        </div>
+
+        <div class="form__row">
+            <label class="form__label" for="task_form_project">Проект</label>
+            <input type="text" id="task_form_project" name="task_form[project]" readonly class="form__input" value="{{ task.project.projectName }}">
+        </div>
+
+        <div class="form__row">
+            <label class="form__label" for="task_form_dueDate">Выполнить до:</label>
+            <input type="text" id="task_form_dueDate" name="task_form[dueDate]" readonly class="form__input" value="{{ task.dueDate | date("d.m.Y") }}">
+        </div>
+
+        <div class="form__row">
+            <label class="form__label" for="task_form_createdAt">Дата создания:</label>
+            <input type="text" id="task_form_createdAt" name="task_form[createdAt]" readonly class="form__input" value="{{ task.createdAt | date("d.m.Y H:i:s") }}">
+        </div>
+
+        {% if task.uploadFile %}
+            <div class="form__row">
+                <label class="form__label" for="task_form_uploadOriginalName">Прикрепленный файл:</label>
+                <input type="text" id="task_form_uploadOriginalName" name="task_form[uploadOriginalName]" readonly class="form__input" value="{{ task.uploadOriginalName }}">
+                <a href="{{ path('download_file', {'filename':task.uploadFile|basename,'originalName':task.uploadOriginalName}) }}" class="btn btn-primary btn-sm active" role="button">
+                    Скачать
+                </a>
+            </div>
+        {% endif %}
+
+        {% if task.updatedAt %}
+            <div class="form__row">
+                <label class="form__label" for="task_form_updatedAt">Дата изменения:</label>
+                <input type="text" id="task_form_updatedAt" name="task_form[updatedAt]" readonly class="form__input" value="{{ task.updatedAt | date("d.m.Y H:i:s") }}">
+            </div>
+        {% endif %}
+
+        <div class="form__row">
+            <label class="form__label" for="task_form_isDone">Статус</label>
+            <input type="text" id="task_form_isDone" name="task_form[isDone]" readonly class="form__input" value="{{ task.isDone ? 'Выполнена' : 'В работе' }}">
+        </div>
+
+        {% if task.completeDate %}
+            <div class="form__row">
+                <label class="form__label" for="task_form_completeDate">Дата выполнения:</label>
+                <input type="text" id="task_form_completeDate" name="task_form[completeDate]" readonly class="form__input" value="{{ task.completeDate | date("d.m.Y H:i:s") }}">
+            </div>
+        {% endif %}
+
+        <div class="form__row form__row--controls">
+            <a href="{{ path('task_edit', {'id':task.id}) }}" class="button">
+                Редактировать
+            </a>
+            <a href="{{ path('task_all') }}" class="button">
+                Назад
+            </a>
+        </div>
+    </div>
+
+{% endblock %}

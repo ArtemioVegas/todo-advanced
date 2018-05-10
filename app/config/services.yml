@@ -1,0 +1,88 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/service_container.html
+parameters:
+    #parameter_name: value
+
+services:
+    #service_name:
+    #    class: AppBundle\Directory\ClassName
+    #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+    app.security.login_form_authenticator:
+            class: AppBundle\Security\LoginFormAuthenticator
+            autowire: true
+
+    app.doctrine.hash_password_listener:
+            class: AppBundle\Doctrine\HashPasswordListener
+            autowire: true
+            tags:
+                - { name: doctrine.event_subscriber }
+
+    app.docs_uploader:
+            class: AppBundle\Service\FileUploader
+            arguments: ['%doc_files_directory%']
+
+    app.query_filter:
+            class: AppBundle\Service\QueryFilter
+            arguments:
+                - "@security.token_storage"
+                - "@doctrine.orm.entity_manager"
+
+    app.tokens.action_listener:
+        class: AppBundle\EventListener\RedirectUserListener
+        arguments:
+            - "@security.token_storage"
+            - "@router"
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    app.redirect_after_registration_subscriber:
+        class: AppBundle\EventListener\RedirectAfterRegistrationSubscriber
+        autowire: true
+        tags:
+            - { name: kernel.event_subscriber }
+
+    app.form.profile:
+        class: AppBundle\Form\ProfileEditType
+        tags:
+            - { name: form.type }
+
+    app.form.registration:
+        class: AppBundle\Form\RegistrationType
+        tags:
+            - { name: form.type }
+
+    app.task_voter:
+        class:  AppBundle\Security\TaskVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false
+
+    app.doctrine_file_upload_listener:
+        class: AppBundle\EventListener\FileUploadListener
+        arguments: ['@app.docs_uploader']
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: postLoad }
+
+    app.twig_extension:
+        class: AppBundle\Twig\TwigExtension
+        public: false
+        tags:
+            - { name: twig.extension }
+
+    app.doctrine_task_subsciber:
+        class: AppBundle\EventListener\TaskSubscriber
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    app.doctrine_project_subsciber:
+        class: AppBundle\EventListener\ProjectSubscriber
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    app.doctrine_user_subsciber:
+        class: AppBundle\EventListener\UserSubscriber
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }

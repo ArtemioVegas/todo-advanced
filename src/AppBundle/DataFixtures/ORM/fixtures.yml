@@ -1,0 +1,53 @@
+AppBundle\Entity\User:
+    user_{1..10}:
+        email: afyc+<current()>@mail.ru
+        username: <firstName()>
+        enabled: 1
+        plainPassword: 123456
+        roles: ['ROLE_USER']
+        #avatarUri: <imageUrl(40, 40, 'abstract')>
+        #contacts: <ru_RU:phoneNumber()>
+        contacts: +79<randomNumber(9,true)>
+
+AppBundle\Entity\Project:
+    project_{1..10}:
+        projectName: <ru_RU:jobTitle()>
+        user: '@user_<current()>'
+
+    projecttwo_{1..10}:
+        projectName: <ru_RU:jobTitle()>
+        user: '@user_<current()>'
+
+    projectthree_{1..10}:
+        projectName: <ru_RU:jobTitle()>
+        user: '@user_<current()>'
+
+
+AppBundle\Entity\Task:
+    task_{1..10}:
+        taskName: task+<current()>
+        dueDate: <date('d-m-Y', '+6 months')>
+        user: '@user_<current()>'
+        project: '@project_<current()>'
+        description: <text()>
+
+    tasktwo_{6..10}:
+        taskName: task+<numberBetween(60,90)>
+        dueDate: <date('d-m-Y', '+6 months')>
+        user: '@user_<current()>'
+        project: '@project_<current()>'
+        description: <text()>
+
+    taskthree_{1..10}:
+        taskName: task+<numberBetween(20,50)>
+        dueDate: <date('d-m-Y', '+6 months')>
+        user: '@user_<current()>'
+        project: '@projecttwo_<current()>'
+        description: <text()>
+
+    tasktfour_{6..10}:
+        taskName: task+<numberBetween(20,50)>
+        dueDate: <date('d-m-Y', '+6 months')>
+        user: '@user_<current()>'
+        project:  '@projectthree_<current()>'
+        description: <text()>

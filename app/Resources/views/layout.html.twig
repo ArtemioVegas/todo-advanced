@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block container %}<div class="container container--with-sidebar">{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+
+        <div class="main-header__side">
+            <a class="main-header__side-item button button--plus" href="{{ path('task_add') }}">Добавить задачу</a>
+
+            <div class="main-header__side-item user-menu">
+                {#
+                <div class="user-menu__image">
+                    <img src="{{ app.user.avatarUri }}" width="40" height="40" alt="Пользователь">
+                </div>
+                #}
+                <div class="user-menu__data">
+                    <p>{{ app.user.userName }}</p>
+                    <p><a href="{{ path('fos_user_profile_show') }}">Профиль</a></p>
+                    <p><a href="{{ path('fos_user_change_password') }}">Сменить пароль</a></p>
+                    <p><a href="{{ path('fos_user_security_logout') }}">Выйти</a></p>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+
+    {% block sidebar %}
+        {{ render(controller('AppBundle:Page:sidebar' ))}}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ parent() }}
+    <script>
+        var routeRecalc = "{{ path('project_count_tasks') }}";
+    </script>
+    {% endblock %}

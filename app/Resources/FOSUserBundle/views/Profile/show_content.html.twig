@@ -1,0 +1,23 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<h2 class="content__main-heading">Профиль</h2>
+<form class = "form">
+        <div class="form__row">
+            <label class="form__label" for="fos_user_profile_username">Имя:</label>
+            <input id = "fos_user_profile_username" class="form__input" type="text" value = "{{ user.username }}" readonly/>
+        </div>
+        <div class="form__row">
+            <label class="form__label" for="fos_user_profile_email">Email:</label>
+            <input id = "fos_user_profile_email" class="form__input" type="text" value = "{{ user.email }}" readonly/>
+        </div>
+        <div class="form__row">
+            <label class="form__label" for="fos_user_profile_form_contacts">Контакты:</label>
+            <input id = "fos_user_profile_form_contacts" class="form__input" type="text" value = "{{ user.contacts }}" readonly/>
+        </div>
+
+        <div class="form__row form__row--controls">
+            <a href="{{ path('fos_user_profile_edit') }}" class="button">
+                Редактировать
+            </a>
+        </div>
+</form>

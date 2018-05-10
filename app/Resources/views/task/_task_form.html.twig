@@ -1,0 +1,41 @@
+{% form_theme form 'form/fields.html.twig' %}
+
+    <form method = "POST" class = "form" enctype="multipart/form-data">
+
+        <div class="form__row">
+            {{ form_label(form.taskName, null, {'label_attr': {'class': 'form__label'}}) }}
+            {{ form_widget(form.taskName, {'attr': {'class': 'form__input'}}) }}
+            {{ form_errors(form.taskName) }}
+        </div>
+
+        <div class="form__row">
+            {{ form_label(form.description, null, {'label_attr': {'class': 'form__label'}}) }}
+            {{ form_widget(form.description, {'attr': {'class': 'form__input'}}) }}
+            {{ form_errors(form.description) }}
+        </div>
+
+        <div class="form__row">
+            {{ form_label(form.project, null, {'label_attr': {'class': 'form__label'}}) }}
+            {{ form_widget(form.project, {'attr': {'class': 'form__input'}}) }}
+            {{ form_errors(form.project) }}
+        </div>
+
+        {% if not task.uploadFile or form.uploadFile.vars.errors|length > 0 %}
+            <div class="form__row">
+                 {{ form_row(form.uploadFile) }}
+            </div>
+        {% endif %}
+
+        <div class="form__row">
+            {{ form_row(form.dueDate) }}
+        </div>
+
+        {{ form_widget(form._token) }}
+
+        <div class="form__row form__row--controls">
+            <input class="button" type="submit" value="Сохранить" formnovalidate>
+            <a href="{{ path('task_all') }}" class="button">
+                Назад
+            </a>
+        </div>
+    </form>
