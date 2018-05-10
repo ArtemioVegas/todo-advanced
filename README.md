@@ -17,7 +17,9 @@ Installation
 Execute this command to install the project:
 
 ```bash
-composer install
+$ composer install
+$ php app/console doctrine:schema:create
+$ php app/console hautelook_alice:doctrine:fixtures:load
 ```
 
 Usage
