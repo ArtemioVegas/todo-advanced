@@ -8,6 +8,7 @@
 !app/logs/.gitkeep
 /app/phpunit.xml
 /app/DoctrineMigrations/
+/app/data/*
 /build/
 /vendor/
 /bin/
