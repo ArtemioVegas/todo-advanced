@@ -20,5 +20,7 @@ parameters:
 
     locale: ru
 
-    # A secret key that's used to generate certain security-related tokens
-    secret: c8fb6e7160523da67730f3e84405a1304cbb69a8
+    # The 'secret' value is a random string of characters used by Symfony to
+    # to add more entropy to security related operations.
+    # see: http://symfony.com/doc/2.8/reference/configuration/framework.html#secret
+    secret: 'secret_value_for_symfony_demo_application'
