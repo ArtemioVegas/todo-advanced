@@ -7,7 +7,6 @@
 !app/cache/.gitkeep
 !app/logs/.gitkeep
 /app/phpunit.xml
-/app/data/academy.sqlite
 /app/DoctrineMigrations/
 /build/
 /vendor/

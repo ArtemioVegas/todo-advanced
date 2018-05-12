@@ -15,7 +15,7 @@ parameters:
     mailer_port: 465
     mailer_encryption: ssl
     mailer_auth_mode: login
-    mailer_user: ~
+    mailer_user: your-mail@example.com
     mailer_password: ~
 
     locale: ru

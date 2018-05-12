@@ -8,7 +8,6 @@ Requirements
 
   * PHP 5.4 or higher;
   * PDO-SQLite PHP extension enabled;
-  * Symfony 2.8
   * and the [usual Symfony application requirements][1].
 
 Installation
@@ -30,7 +29,7 @@ command to run the built-in web server and access the application in your
 browser at <http://localhost:8000>:
 
 ```bash
-$ cd symfony-demo/
+$ cd <project_name>/
 $ php app/console server:run
 ```
 
