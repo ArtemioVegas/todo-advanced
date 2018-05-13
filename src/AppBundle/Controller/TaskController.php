@@ -39,14 +39,10 @@ class TaskController extends Controller
     public function addAction(Request $request)
     {
         // Если у пользователя нет проектов то редиректим
-        if(!$this->getDoctrine()->getManager()->getRepository('AppBundle:Project')
-            ->findAllProjectsByUser($this->getUser())){
-
-            $this->addFlash('warning', 'Необходимо создать хотя бы 1 проект!');
-
-            return $this->redirectToRoute('project_add');
-
+        if($this->redirectIfNoCategoriesFound()){
+            exit;
         }
+
         $task = new Task();
         $form = $this->createForm(TaskForm::class,$task,array(
             'user_object' => $this->getUser()
@@ -286,5 +282,17 @@ class TaskController extends Controller
         }
 
         return $this->render('task/search.html.twig',['tasks'=>$tasks]);
+    }
+
+    private function redirectIfNoCategoriesFound()
+    {
+        if(!$this->getDoctrine()->getManager()->getRepository('AppBundle:Project')
+            ->findAllProjectsByUser($this->getUser())){
+
+            $this->addFlash('warning', 'Необходимо создать хотя бы 1 проект!');
+
+            return $this->redirectToRoute('project_add')->sendHeaders();
+        }
+        return false;
     }
 }
