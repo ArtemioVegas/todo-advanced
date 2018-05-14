@@ -121,7 +121,6 @@ class TaskController extends Controller
         if ($request->isXmlHttpRequest()) {
             try{
                 $error   = 0;
-                $message = '';
 
                 if(empty($task)){
                     throw new NotFoundHttpException;
@@ -168,7 +167,6 @@ class TaskController extends Controller
 
             try{
                 $error   = '';
-                $message = '';
 
                 if(empty($task)){
                     throw new NotFoundHttpException;
@@ -206,7 +204,6 @@ class TaskController extends Controller
         if ($request->isXmlHttpRequest()){
             try{
                 $error   = '';
-                $message = '';
                 $data    = [];
 
                 if(empty($task)){
