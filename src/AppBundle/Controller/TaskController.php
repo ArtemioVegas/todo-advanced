@@ -114,7 +114,7 @@ class TaskController extends Controller
 
     /**
      * @Route("/task/{id}/done", name="task_done",requirements={"id": "\d+"})
-     * @Method({"GET", "POST"})
+     * @Method("POST")
      */
     public function doneAction(Request $request, Task $task = null)
     {
@@ -164,7 +164,7 @@ class TaskController extends Controller
      * Deletes a Task entity.
      *
      * @Route("/task/{id}/delete", name="task_delete",requirements={"id": "\d+"})
-     * @Method({"GET", "POST"})
+     * @Method("POST")
      *
      * The Security annotation value is an expression (if it evaluates to false,
      * the authorization mechanism will prevent the user accessing this resource).
@@ -213,7 +213,7 @@ class TaskController extends Controller
 
     /**
      * @Route("/task/{id}/clone", name="task_clone",requirements={"id": "\d+"})
-     * @Method({"GET", "POST"})
+     * @Method("POST")
      */
     public function cloneAction(Request $request, Task $task = null)
     {
