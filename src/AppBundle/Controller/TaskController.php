@@ -114,13 +114,17 @@ class TaskController extends Controller
 
     /**
      * @Route("/task/{id}/done", name="task_done",requirements={"id": "\d+"})
-     * @Method("POST")
+     * @Method({"GET", "POST"})
      */
     public function doneAction(Request $request, Task $task = null)
     {
+        // default response
+        $response = array('message' => 'You can access this only using Ajax!');
+        $status = 400;
+
         if ($request->isXmlHttpRequest()) {
             try{
-                $error   = 0;
+                $error = 0;
 
                 if(empty($task)){
                     throw new NotFoundHttpException;
@@ -145,24 +149,32 @@ class TaskController extends Controller
                 $error   =  1;
             }
 
-            return new JsonResponse(array(
+            //return
+            $response = array(
                 'error'   => $error,
                 'message' => $message,
-            ));
+            );
+            $status = 200;
         }
+
+        return new JsonResponse($response, $status);
     }
 
     /**
      * Deletes a Task entity.
      *
      * @Route("/task/{id}/delete", name="task_delete",requirements={"id": "\d+"})
-     * @Method("POST")
+     * @Method({"GET", "POST"})
      *
      * The Security annotation value is an expression (if it evaluates to false,
      * the authorization mechanism will prevent the user accessing this resource).
      */
     public function deleteAction(Request $request, Task $task = null)
     {
+        // default response
+        $response = array('message' => 'You can access this only using Ajax!');
+        $status = 400;
+
         if ($request->isXmlHttpRequest()) {
 
             try{
@@ -188,19 +200,27 @@ class TaskController extends Controller
                 $error   =  1;
             }
 
-            return new JsonResponse(array(
+            //return
+            $response = array(
                 'error'   => $error,
                 'message' => $message,
-            ));
+            );
+            $status = 200;
         }
+
+        return new JsonResponse($response, $status);
     }
 
     /**
      * @Route("/task/{id}/clone", name="task_clone",requirements={"id": "\d+"})
-     * @Method("POST")
+     * @Method({"GET", "POST"})
      */
     public function cloneAction(Request $request, Task $task = null)
     {
+        // default response
+        $response = array('message' => 'You can access this only using Ajax!');
+        $status = 400;
+
         if ($request->isXmlHttpRequest()){
             try{
                 $error   = '';
@@ -249,12 +269,15 @@ class TaskController extends Controller
                 $error   =  1;
             }
 
-            return new JsonResponse(array(
+            $response = array(
                 'error'   => $error,
                 'message' => $message,
                 'info'    => $data,
-            ));
+            );
+            $status = 200;
         }
+
+        return new JsonResponse($response, $status);
     }
 
     /**
