@@ -32,6 +32,20 @@ class User extends BaseUser
      * )
      */
     private $contacts;
+    /**
+     * @Assert\Length(
+     *     min=6,
+     *     max=100,
+     *     minMessage="user.password.short",
+     *     groups={"Profile", "ResetPassword", "Registration", "ChangePassword"}
+     * )
+     * @Assert\Regex(
+     *     pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,100}$/",
+     *     message="user.password.difficulty",
+     *     groups={"Profile", "ResetPassword", "Registration", "ChangePassword"}
+     * )
+     */
+    protected $plainPassword;
 
     public function __construct()
     {
