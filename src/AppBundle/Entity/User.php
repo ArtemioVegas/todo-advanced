@@ -46,6 +46,14 @@ class User extends BaseUser
      * )
      */
     protected $plainPassword;
+    /**
+     * @Assert\Regex(
+     *     pattern="/^(?=.*[a-z]).{2,180}$/i",
+     *     message="user.name.difficulty",
+     *     groups={"Profile", "Registration"}
+     * )
+     */
+    protected $username;
 
     public function __construct()
     {
