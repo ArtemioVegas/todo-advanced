@@ -7,6 +7,24 @@ services:
     #service_name:
     #    class: AppBundle\Directory\ClassName
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+
+    fos_user.listener.flash:
+            class: AppBundle\EventListener\CustomFlashListener
+            arguments:
+                - "@session"
+                - "@translator"
+                - "@security.token_storage"
+            tags:
+                - { name: kernel.event_subscriber }
+
+    fos_user.listener.authentication:
+            class: AppBundle\EventListener\MyAuthenticationListener
+            arguments:
+                - "@fos_user.security.login_manager"
+                - '%fos_user.firewall_name%'
+            tags:
+                - { name: kernel.event_subscriber }
+
     app.security.login_form_authenticator:
             class: AppBundle\Security\LoginFormAuthenticator
             autowire: true

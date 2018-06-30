@@ -12,6 +12,9 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use FOS\UserBundle\Model\UserManager;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
@@ -107,5 +110,24 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     protected function getDefaultSuccessRedirectUrl()
     {
         return $this->router->generate('task_all');
+    }
+
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
+    {
+        $targetPath = null;
+
+        // if the user hit a secure page and start() was called, this was
+        // the URL they were on, and probably where you want to redirect to
+        if ($request->getSession() instanceof SessionInterface) {
+            $targetPath = $request->getSession()->get('_security.' . $providerKey . '.target_path');
+            // add flash message to the user
+            $request->getSession()->getBag('flashes')->add('success', 'Hello, ' . $token->getUsername());
+        }
+
+        if (!$targetPath) {
+            $targetPath = $this->getDefaultSuccessRedirectUrl();
+        }
+
+        return new RedirectResponse($targetPath);
     }
 }
