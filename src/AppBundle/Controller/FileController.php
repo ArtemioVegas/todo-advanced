@@ -57,7 +57,7 @@ class FileController extends Controller
         $response->setContentDisposition(
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,
             $originalName,
-            iconv('UTF-8', 'ASCII//TRANSLIT', $originalName)
+            iconv('UTF-8', 'ASCII//IGNORE', $originalName)
         );
 
         return $response;

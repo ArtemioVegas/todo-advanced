@@ -48,7 +48,13 @@ class Task
      * @ORM\Column(type="string", nullable=true)
      * @Assert\File(
      *     maxSize = "2M",
-     *     mimeTypes = {"image/gif", "image/jpeg","image/png"}
+     *     mimeTypes = {
+     *     "vnd.openxmlformats-officedocument.wordprocessingml.document",
+     *     "application/msword",
+     *     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+     *     "application/vnd.ms-excel",
+     *     "application/pdf"
+     * }
      *     )
      */
     private $uploadFile;
